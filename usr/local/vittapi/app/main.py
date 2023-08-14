@@ -25,7 +25,9 @@ import sys
 import os
 
 libs_directory = '/usr/local/vittapi/libs'
+libs_headless_directory = '/home/pi/Desktop/vittapi/usr/local/vittapi/libs'
 sys.path.append(libs_directory)
+sys.path.append(libs_headless_directory)
 
 class Unbuffered(object):
     def __init__(self, stream):
