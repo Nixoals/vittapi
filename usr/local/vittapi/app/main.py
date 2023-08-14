@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify, Response
+from flask_socketio import SocketIO, send
 from flask_cors import CORS
 import tempfile
 import subprocess
 import sys
-from flask_socketio import SocketIO, send
 import logging
-
+import os
 import sys
-sys.path.append('/usr/local/vittapi/')
+
+libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
+sys.path.append(libs_directory)
+
 
 socketio_logger = logging.getLogger('socketio')
 socketio_logger.setLevel(logging.ERROR)
@@ -19,7 +22,11 @@ app = Flask(__name__)
 
 precode="""
 import sys
-sys.path.append('/usr/local/vittapi/libs/')
+import os
+
+libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
+sys.path.append(libs_directory)
+
 class Unbuffered(object):
     def __init__(self, stream):
         self.stream = stream
