@@ -16,7 +16,7 @@ GROVE_PI_PATH="/usr/lib/grove.py/"
 original_dir=$(pwd) # Save current directory
 
 cd "$GROVE_PI_PATH"
-pip install .
+sudo pip3 install .
 
 cd "$original_dir" # Return to the original directory
 

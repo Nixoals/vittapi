@@ -78,7 +78,7 @@ class Neopixel(PixelStrip):
             brightness = LED_BRIGHTNESS
 
         # Create PixelStrip object with appropriate configuration.
-        super(GroveWS2813RgbStrip, self).__init__(
+        super(Neopixel, self).__init__(
             count,
             pin,
             LED_FREQ_HZ,
