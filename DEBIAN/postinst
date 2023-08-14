@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Path to virtual env
+VENV_PATH="/usr/local/vittapi/venv"
+
+# Virtual env
+python3 -m venv "$VENV_PATH"
+
+# activate virtual env
+. "$VENV_PATH/bin/activate"
+
+
+pip install flask RPi.GPIO flask_cors Flask-SocketIO
+
+GROVE_PI_PATH="/usr/lib/grove.py/"
+
+original_dir=$(pwd) # Save current directory
+
+cd "$GROVE_PI_PATH"
+pip install .
+
+cd "$original_dir" # Return to the original directory
+
+deactivate
+
+chmod +x /usr/bin/vittapi.sh
+
+
+# Create ShortCut to desktop
+cp /usr/share/application/vittapi.desktop /usr/share/applications/
+
+for dir in /home/*/Desktop/; do
+    cp /usr/share/application/vittapi.desktop "$dir"
+done
+
+for dir in /home/*/Desktop/; do
+    chmod +x "$dir/vittapi.desktop"
+done
+
+exit 0
+
