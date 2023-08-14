@@ -11,7 +11,7 @@ python3 -m venv "$VENV_PATH"
 
 pip install flask RPi.GPIO flask_cors Flask-SocketIO
 
-GROVE_PI_PATH="/usr/lib/grove.py/"
+GROVE_PI_PATH="/usr/local/vittapi/grove"
 
 original_dir=$(pwd) # Save current directory
 
