@@ -24,7 +24,7 @@ precode="""
 import sys
 import os
 
-libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
+libs_directory = '/usr/local/vittapi/libs'
 sys.path.append(libs_directory)
 
 class Unbuffered(object):
