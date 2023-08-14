@@ -16,7 +16,7 @@ GROVE_PI_PATH="/usr/local/vittapi/grove"
 original_dir=$(pwd) # Save current directory
 
 cd "$GROVE_PI_PATH"
-sudo pip3 install .
+pip3 install .
 
 cd "$original_dir" # Return to the original directory
 
