@@ -6,6 +6,9 @@ import sys
 from flask_socketio import SocketIO, send
 import logging
 
+import sys
+sys.path.append('/usr/local/vittapi/')
+
 socketio_logger = logging.getLogger('socketio')
 socketio_logger.setLevel(logging.ERROR)
 
@@ -16,6 +19,7 @@ app = Flask(__name__)
 
 precode="""
 import sys
+sys.path.append('/usr/local/vittapi/libs/')
 class Unbuffered(object):
     def __init__(self, stream):
         self.stream = stream
