@@ -24,13 +24,7 @@ precode="""
 import sys
 import os
 
-# Get the directory of the current file
-current_directory = os.path.dirname(os.path.abspath(__file__))
-
-# Navigate two directories up and append 'libs'
-libs_directory = os.path.join(current_directory, '..', '..', 'libs')
-libs_directory = os.path.normpath(libs_directory)  # Normalize the path to remove any '..'
-
+libs_directory = '/usr/local/vittapi/libs'
 sys.path.append(libs_directory)
 
 class Unbuffered(object):
