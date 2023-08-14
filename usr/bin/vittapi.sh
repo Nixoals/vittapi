@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#path to venv
-PATH="/usr/local/vittapi"
+#path to main.py
+APP_PATH="/usr/local/vittapi"
 echo 'starting vittapi'
-python3 "$PATH/app/main.py"
+python3 "$APP_PATH/app/main.py"
 
