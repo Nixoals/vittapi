@@ -91,6 +91,17 @@ class Neopixel(PixelStrip):
         # Intialize the library (must be called once before other functions).
         self.begin()
 
+    def set_pixel(self, index, red, green, blue):
+        '''
+        Set the color of a pixel.
+
+        Args:
+            index(int): the index of the pixel
+            color(Color): the color of the pixel
+        '''
+        color = Color(red, green, blue)
+        self.setPixelColor(index, color)
+
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
