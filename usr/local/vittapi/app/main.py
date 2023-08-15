@@ -44,9 +44,21 @@ class Unbuffered(object):
 sys.stdout = Unbuffered(sys.stdout)
 """
 
+
 CORS(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
+
+current_process = None
+
+def terminate_current_process():
+    global current_process
+    if current_process:
+        try:
+            current_process.terminate()
+            current_process.wait()  # Wait for the process to terminate
+        except Exception as e:
+            print(f"Error while terminating process: {e}")
 
 
 def stream_process_output(command):
@@ -66,12 +78,29 @@ def stream_process_output(command):
 
 @app.route('/test', methods=['POST'])
 def home_command():
+    global current_process
+
+    # Terminate any previous processes
+    terminate_current_process()
+
     code = precode + '\n\r' + request.form.get('command')
     with tempfile.NamedTemporaryFile(suffix=".py", delete=False) as temp:
         temp.write(code.encode())
         temp.flush()  # Make sure the data is written to the file
 
-    return Response(stream_process_output([sys.executable, temp.name]), content_type='text/plain')
+    current_process = subprocess.Popen([sys.executable, temp.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    # Instead of calling stream_process_output directly, you'll wrap it
+    # so that the global process is cleared after it completes
+    def wrapped_stream():
+        try:
+            for line in stream_process_output(current_process):
+                yield line
+        finally:
+            global current_process
+            current_process = None
+
+    return Response(wrapped_stream(), content_type='text/plain')
 
 @socketio.on('message')
 def handle_connection(data):
