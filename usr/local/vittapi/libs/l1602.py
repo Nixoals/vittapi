@@ -1,12 +1,10 @@
 import smbus
 import time
 
-bus = smbus.SMBus(1)
+bus = smbus.SMBus(1)  # Utilisez le bus I2C 1
 LCD_ADDRESS = 0x3E
 
-
-class LCD1602:
-
+class LCD1602():
     def __init__(self):
         self.__lcd_init()
 
@@ -19,54 +17,25 @@ class LCD1602:
         bus.write_byte_data(LCD_ADDRESS, 0x80, cmd)
         time.sleep(0.05)
 
-    def write_string(self, s, line=None):
-        self.clear()
-        if line:
-            pass
+    def write_data(self, data):
+        bus.write_byte_data(LCD_ADDRESS, 0x40, data)
+        time.sleep(0.05)
+
+    def setCursor(self, row, column):
+        # Pour un LCD 16x2 :
+        # La première ligne commence à l'adresse 0x80
+        # La seconde ligne commence à l'adresse 0xC0
+        if row == 0:
+            address = 0x80 + column
+        elif row == 1:
+            address = 0xC0 + column
         else:
-        # Si la longueur de la chaîne est supérieure à 16 et que la ligne n'est pas spécifiée, divisez-la en deux
-            if len(s) > 16:
-                first_line = s[:16]
-                second_line = s[16:32]  # Prendre jusqu'à 32 caractères au total
-            else:
-                first_line = s
-                second_line = ""
-
-            # Écrire la première ligne
-            byte_list1 = [ord(char) for char in first_line]
-            bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list1)
-            time.sleep(0.05)  # Donner un peu de temps pour l'affichage
-
-            # Si nous avons une deuxième ligne à afficher
-            if second_line:
-                # Déplacez le curseur vers le début de la deuxième ligne.
-                # Habituellement, l'adresse 0xC0 est utilisée pour la deuxième ligne des écrans LCD 16x2.
-                self.write_command(0xC0)
-
-                byte_list2 = [ord(char) for char in second_line]
-                bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list2)
-
-    def clear(self):
-        self.write_command(0x01)  # Efface l'écran
-
-    def set_cursor_position(self, line, position):
-        # Les adresses RAM pour les lignes du LCD1602 sont généralement:
-        # 1ère ligne : 0x80 + position
-        # 2ème ligne : 0xC0 + position
-        if line == 1:
-            address = 0x80 + position
-        elif line == 2:
-            address = 0xC0 + position
-        else:
-            raise ValueError("Line number should be 1 or 2")
-
+            raise ValueError("Invalid row number (0 or 1 allowed)")
         self.write_command(address)
 
-    def turn_on_cursor(self):
-        self.write_command(0x0E)  # Allume le curseur
-
-    def turn_off_cursor(self):
-        self.write_command(0x0C)  # Éteint le curseur
-
-    def blink_cursor(self):
-        self.write_command(0x0F)  # Fait clignoter le curseur
+    def writeTxt(self, s):
+        # Tronquer le texte à 16 caractères s'il est trop long
+        truncated_text = s[:16]
+        
+        byte_list = [ord(char) for char in truncated_text]
+        bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list)
