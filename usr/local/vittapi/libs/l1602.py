@@ -20,7 +20,7 @@ class LCD1602:
         time.sleep(0.05)
 
     def write_string(self, s, line=None):
-        clear()
+        self.clear()
         if line:
             pass
         else:
