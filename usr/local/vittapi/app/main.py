@@ -95,7 +95,6 @@ def home_command():
             for line in stream_process_output(current_process):
                 yield line
         finally:
-            global current_process
             current_process = None
 
     return Response(wrapped_stream(), content_type='text/plain')
