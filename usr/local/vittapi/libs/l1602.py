@@ -19,11 +19,8 @@ class LCD1602:
         bus.write_byte_data(LCD_ADDRESS, 0x80, cmd)
         time.sleep(0.05)
 
-    def write_data(self, data):
-        bus.write_byte_data(LCD_ADDRESS, 0x40, data)
-        time.sleep(0.05)
-
     def write_string(self, s, line=None):
+        clear()
         if line:
             pass
         else:
