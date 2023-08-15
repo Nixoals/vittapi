@@ -10,7 +10,6 @@ import os
 libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
 sys.path.append(libs_directory)
 
-
 socketio_logger = logging.getLogger('socketio')
 socketio_logger.setLevel(logging.ERROR)
 
@@ -19,7 +18,7 @@ engineio_logger.setLevel(logging.ERROR)
 
 app = Flask(__name__)
 
-precode="""
+precode = """
 import sys
 import os
 
@@ -43,7 +42,6 @@ class Unbuffered(object):
 sys.stdout = Unbuffered(sys.stdout)
 """
 
-
 CORS(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -51,6 +49,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 current_process = None
 
 def terminate_current_process():
+    global current_process
     if current_process:
         try:
             current_process.terminate()
@@ -58,10 +57,7 @@ def terminate_current_process():
         except Exception as e:
             print(f"Error while terminating process: {e}")
 
-
-def stream_process_output(command):
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-
+def stream_process_output(process):
     # Capture stdout
     for line in iter(process.stdout.readline, ''):
         yield line
@@ -88,23 +84,12 @@ def home_command():
 
     current_process = subprocess.Popen([sys.executable, temp.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-    # Instead of calling stream_process_output directly, you'll wrap it
-    # so that the global process is cleared after it completes
-    def wrapped_stream(process):
-        
-        try:
-            for line in stream_process_output(process):
-                yield line
-        finally:
-            current_process = None
-
-    return Response(wrapped_stream(current_process), content_type='text/plain')
+    return Response(stream_process_output(current_process), content_type='text/plain')
 
 @socketio.on('message')
 def handle_connection(data):
     if 'connection request' in data["data"]:
         send('connected')
-
 
 if __name__ == '__main__':
     socketio.run(app, host="0.0.0.0")
