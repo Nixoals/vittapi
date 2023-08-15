@@ -6,7 +6,6 @@ import subprocess
 import sys
 import logging
 import os
-import sys
 
 libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
 sys.path.append(libs_directory)
@@ -52,7 +51,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 current_process = None
 
 def terminate_current_process():
-    global current_process
     if current_process:
         try:
             current_process.terminate()
