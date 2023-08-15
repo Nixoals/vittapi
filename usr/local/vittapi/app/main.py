@@ -90,14 +90,15 @@ def home_command():
 
     # Instead of calling stream_process_output directly, you'll wrap it
     # so that the global process is cleared after it completes
-    def wrapped_stream():
+    def wrapped_stream(process):
+        
         try:
-            for line in stream_process_output(current_process):
+            for line in stream_process_output(process):
                 yield line
         finally:
             current_process = None
 
-    return Response(wrapped_stream(), content_type='text/plain')
+    return Response(wrapped_stream(current_process), content_type='text/plain')
 
 @socketio.on('message')
 def handle_connection(data):
