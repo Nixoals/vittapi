@@ -4,6 +4,7 @@ import time
 bus = smbus.SMBus(1)
 LCD_ADDRESS = 0x3E
 
+
 class LCD1602:
 
     def __init__(self):
@@ -21,10 +22,29 @@ class LCD1602:
     def write_data(self, data):
         bus.write_byte_data(LCD_ADDRESS, 0x40, data)
         time.sleep(0.05)
-    
+
     def write_string(self, s):
-        for char in s:
-            self.write_data(ord(char))
+        # Si la longueur de la chaîne est supérieure à 16, divisez-la en deux
+        if len(s) > 16:
+            first_line = s[:16]
+            second_line = s[16:32]  # Prendre jusqu'à 32 caractères au total
+        else:
+            first_line = s
+            second_line = ""
+
+        # Écrire la première ligne
+        byte_list1 = [ord(char) for char in first_line]
+        bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list1)
+        time.sleep(0.05)  # Donner un peu de temps pour l'affichage
+
+        # Si nous avons une deuxième ligne à afficher
+        if second_line:
+            # Déplacez le curseur vers le début de la deuxième ligne.
+            # Habituellement, l'adresse 0xC0 est utilisée pour la deuxième ligne des écrans LCD 16x2.
+            self.write_command(0xC0)
+
+            byte_list2 = [ord(char) for char in second_line]
+            bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list2)
 
     def clear(self):
         self.write_command(0x01)  # Efface l'écran
@@ -39,7 +59,7 @@ class LCD1602:
             address = 0xC0 + position
         else:
             raise ValueError("Line number should be 1 or 2")
-        
+
         self.write_command(address)
 
     def turn_on_cursor(self):
@@ -50,6 +70,3 @@ class LCD1602:
 
     def blink_cursor(self):
         self.write_command(0x0F)  # Fait clignoter le curseur
-
-
-
