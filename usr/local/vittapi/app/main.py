@@ -23,6 +23,7 @@ import sys
 import os
 
 libs_directory = '/usr/local/vittapi/libs'
+#to remove when building package
 libs_headless_directory = '/home/pi/Desktop/vittapi/usr/local/vittapi/libs'
 sys.path.append(libs_directory)
 sys.path.append(libs_headless_directory)
@@ -70,7 +71,7 @@ def stream_process_output(process):
     process.stderr.close()
     process.wait()
 
-@app.route('/test', methods=['POST'])
+@app.route('/send-command', methods=['POST'])
 def home_command():
     global current_process
 
@@ -85,6 +86,12 @@ def home_command():
     current_process = subprocess.Popen([sys.executable, temp.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
     return Response(stream_process_output(current_process), content_type='text/plain')
+
+@app.route('/terminate', methods=['POST'])
+def terminate():
+    terminate_current_process()
+    return Response("Process terminated", content_type='text/plain')
+
 
 @socketio.on('message')
 def handle_connection(data):
