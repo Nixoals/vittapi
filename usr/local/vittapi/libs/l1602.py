@@ -23,28 +23,31 @@ class LCD1602:
         bus.write_byte_data(LCD_ADDRESS, 0x40, data)
         time.sleep(0.05)
 
-    def write_string(self, s):
-        # Si la longueur de la chaîne est supérieure à 16, divisez-la en deux
-        if len(s) > 16:
-            first_line = s[:16]
-            second_line = s[16:32]  # Prendre jusqu'à 32 caractères au total
+    def write_string(self, s, line=None):
+        if line:
+            pass
         else:
-            first_line = s
-            second_line = ""
+        # Si la longueur de la chaîne est supérieure à 16 et que la ligne n'est pas spécifiée, divisez-la en deux
+            if len(s) > 16:
+                first_line = s[:16]
+                second_line = s[16:32]  # Prendre jusqu'à 32 caractères au total
+            else:
+                first_line = s
+                second_line = ""
 
-        # Écrire la première ligne
-        byte_list1 = [ord(char) for char in first_line]
-        bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list1)
-        time.sleep(0.05)  # Donner un peu de temps pour l'affichage
+            # Écrire la première ligne
+            byte_list1 = [ord(char) for char in first_line]
+            bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list1)
+            time.sleep(0.05)  # Donner un peu de temps pour l'affichage
 
-        # Si nous avons une deuxième ligne à afficher
-        if second_line:
-            # Déplacez le curseur vers le début de la deuxième ligne.
-            # Habituellement, l'adresse 0xC0 est utilisée pour la deuxième ligne des écrans LCD 16x2.
-            self.write_command(0xC0)
+            # Si nous avons une deuxième ligne à afficher
+            if second_line:
+                # Déplacez le curseur vers le début de la deuxième ligne.
+                # Habituellement, l'adresse 0xC0 est utilisée pour la deuxième ligne des écrans LCD 16x2.
+                self.write_command(0xC0)
 
-            byte_list2 = [ord(char) for char in second_line]
-            bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list2)
+                byte_list2 = [ord(char) for char in second_line]
+                bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list2)
 
     def clear(self):
         self.write_command(0x01)  # Efface l'écran
