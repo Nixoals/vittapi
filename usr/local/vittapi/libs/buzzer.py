@@ -16,7 +16,7 @@ class GroveBuzzer(object):
         self.tone = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin, GPIO.OUT)
-        # self.pwm = GPIO.PWM(self.pin, chords_freq[self.tone])
+        self.pwm = GPIO.PWM(self.pin, self.tone)
     
     def cleanup(self):
         GPIO.cleanup()
