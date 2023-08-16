@@ -24,5 +24,5 @@ class GroveBuzzer(object):
         self.pwm.start(50)
         time.sleep(duration)
         self.pwm.stop()
-        self.cleanup()
+        # self.cleanup()
 
