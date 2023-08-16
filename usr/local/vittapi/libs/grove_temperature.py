@@ -21,9 +21,9 @@ class GroveTemperature:
         
         # Convertir en degrés Celsius
         temperature = temperature_in_kelvin - 273.15
-        if unit.lower() == 'f':
+        if unit.lower() == 'fahrenheit':
             temperature = temperature * 1.8 + 32
-        elif unit.lower() == 'k':
+        elif unit.lower() == 'kelvin':
             temperature = temperature_in_kelvin
         return temperature
 
