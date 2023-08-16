@@ -1,14 +1,6 @@
 import time
 import RPi.GPIO as GPIO
 
-# Configuration
-# GPIO.setmode(GPIO.BCM)
-# BUZZER_PIN = 12
-# GPIO.setup(BUZZER_PIN, GPIO.OUT)
-
-# # Définir les fréquences pour DO, RE, MI, etc.
-# chords_freq = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88]  # C, D, E, F, G, A, B
-  # Initialisation avec la fréquence DO
 
 class GroveBuzzer(object):
     def __init__(self, pin):
@@ -16,14 +8,18 @@ class GroveBuzzer(object):
         self.tone = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin, GPIO.OUT)
-        self.pwm = GPIO.PWM(self.pin, self.tone)
+        self.pwm = None
     
     def cleanup(self):
         GPIO.cleanup()
 
     def pitch(self, tone, duration=0.5):
         self.tone = tone
-        self.pwm.ChangeFrequency(chords_freq[self.tone])
+        if self.pwm:
+            self.pwm.stop()
+            self.pwm = None
+        self.pwm = GPIO.PWM(self.pin, self.tone)
+        self.pwm.ChangeFrequency(self.tone)
         self.pwm.start(50)
         time.sleep(duration)
         self.pwm.stop()
