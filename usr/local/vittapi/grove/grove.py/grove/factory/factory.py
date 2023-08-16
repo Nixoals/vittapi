@@ -118,30 +118,30 @@ class __factory(object):
             print(name, ',', sep='', end='')
         print("\b ")
 
-    def getButton(self, typ, pin):
-        if typ == "GPIO-LOW":
-            return ButtonTypedGpio(pin, True)
-        elif typ == "GPIO-HIGH":
-            return ButtonTypedGpio(pin, False)
-        elif typ == "I2C":
-            return ButtonTypedI2c()
-        elif typ == "I2C-POLL":
-            return ButtonTypedI2c(evt_en = False)
-        else:
-            self.__avail_list(typ, self.ButtonEnum)
-            sys.exit(1)
+    # def getButton(self, typ, pin):
+    #     if typ == "GPIO-LOW":
+    #         return ButtonTypedGpio(pin, True)
+    #     elif typ == "GPIO-HIGH":
+    #         return ButtonTypedGpio(pin, False)
+    #     elif typ == "I2C":
+    #         return ButtonTypedI2c()
+    #     elif typ == "I2C-POLL":
+    #         return ButtonTypedI2c(evt_en = False)
+    #     else:
+    #         self.__avail_list(typ, self.ButtonEnum)
+    #         sys.exit(1)
 
-    def getOneLed(self, typ, pin):
-        if typ == "GPIO-LOW":
-            return OneLedTypedGpio(pin, False)
-        elif typ == "GPIO-HIGH":
-            return OneLedTypedGpio(pin, True)
-        elif typ == "WS2812-PWM":
-            from grove.led.one_led_ws2812 import OneLedTypedWs2812
-            return OneLedTypedWs2812(pin)
-        else:
-            self.__avail_list(typ, self.OneLedEnum)
-            sys.exit(1)
+    # def getOneLed(self, typ, pin):
+    #     if typ == "GPIO-LOW":
+    #         return OneLedTypedGpio(pin, False)
+    #     elif typ == "GPIO-HIGH":
+    #         return OneLedTypedGpio(pin, True)
+    #     elif typ == "WS2812-PWM":
+    #         from grove.led.one_led_ws2812 import OneLedTypedWs2812
+    #         return OneLedTypedWs2812(pin)
+    #     else:
+    #         self.__avail_list(typ, self.OneLedEnum)
+    #         sys.exit(1)
 
     def getTemper(self, typ, channel = None, address=0x18):
         if typ == "NTC-ADC":
@@ -152,29 +152,29 @@ class __factory(object):
             self.__avail_list(typ, self.TemperEnum)
             sys.exit(1)
 
-    def getGpioWrapper(self, typ, pin):
-        if typ == "PIRMotion":
-            return GPIOWrapper(pin, _wrapper_pir_motion)
-        elif typ == "Buzzer":
-            return GPIOWrapper(pin, _wrapper_buzzer)
-        elif typ == "Electromagnet":
-            return GPIOWrapper(pin, _wrapper_electromagnet)
-        elif typ == "Relay":
-            return GPIOWrapper(pin, _wrapper_relay)
-        else:
-            self.__avail_list(typ, self.GPIOWrapperEnum)
-            sys.exit(1)
+    # def getGpioWrapper(self, typ, pin):
+    #     if typ == "PIRMotion":
+    #         return GPIOWrapper(pin, _wrapper_pir_motion)
+    #     elif typ == "Buzzer":
+    #         return GPIOWrapper(pin, _wrapper_buzzer)
+    #     elif typ == "Electromagnet":
+    #         return GPIOWrapper(pin, _wrapper_electromagnet)
+    #     elif typ == "Relay":
+    #         return GPIOWrapper(pin, _wrapper_relay)
+    #     else:
+    #         self.__avail_list(typ, self.GPIOWrapperEnum)
+    #         sys.exit(1)
 
-    def getStepperMotor(self, typ):
-        if typ == "28BYJ48":
-            return I2CStepperMotor(_stepper_motor_28BYJ48)
-        elif typ == "24BYJ48":
-            return I2CStepperMotor(_stepper_motor_24BYJ48)
-        elif typ == "YH42BYGH40":
-            return I2CStepperMotor(_stepper_motor_YH42BYGH40)
-        else:
-            self._avail_list(typ, self.StepperMotorEnum)
-            sys.exit(1)
+    # def getStepperMotor(self, typ):
+    #     if typ == "28BYJ48":
+    #         return I2CStepperMotor(_stepper_motor_28BYJ48)
+    #     elif typ == "24BYJ48":
+    #         return I2CStepperMotor(_stepper_motor_24BYJ48)
+    #     elif typ == "YH42BYGH40":
+    #         return I2CStepperMotor(_stepper_motor_YH42BYGH40)
+    #     else:
+    #         self._avail_list(typ, self.StepperMotorEnum)
+    #         sys.exit(1)
 
     # def getDisplay(self, typ):
     #     if typ == "JHD1802":

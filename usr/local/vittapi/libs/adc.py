@@ -15,17 +15,3 @@ class ADC():
         value = self.adc.read_voltage(self.channel)
         return value
 
-
-# def main():
-#     sensor = GroveTemperature(2)
-
-#     while True:
-#         adc_value = sensor.adc.read(sensor.channel)
-#         resistance = (float)(1023 - adc_value) * 10000 / adc_value
-        
-#         print("Valeur ADC : ", adc_value)
-#         print("Résistance : ", resistance)
-        
-#         temperature = sensor.read()
-#         print("Température : {:.2f} C".format(temperature))
-#         time.sleep(1)
