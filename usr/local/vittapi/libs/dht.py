@@ -1,4 +1,5 @@
 import time
+
 from seeed_dht import DHT as GroveDHT
 
 class DHT():
