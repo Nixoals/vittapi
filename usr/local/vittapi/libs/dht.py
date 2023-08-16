@@ -1,11 +1,11 @@
 import time
-import seed_dht 
+from seeed_dht import DHT as GroveDHT
 
-class DHT_SENSOR():
+class DHT():
     def __init__(self, pin, sensor):
         self.pin = pin
         self.sensor = sensor
-        self.dht = seeed_dht.DHT(sensor, pin)
+        self.dht = GroveDHT(self.pin, self.sensor)
 
     def read(self):
         humi, temp = self.dht.read()
