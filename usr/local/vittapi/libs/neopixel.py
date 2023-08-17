@@ -58,7 +58,7 @@ LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 
-class Neopixel(PixelStrip):
+class NeoPixel(PixelStrip):
     '''
     Wrapper Class for Grove - WS2813 RGB LED Strip Waterproof - XXX LED/m
 
@@ -78,7 +78,7 @@ class Neopixel(PixelStrip):
             brightness = LED_BRIGHTNESS
 
         # Create PixelStrip object with appropriate configuration.
-        super(Neopixel, self).__init__(
+        super(NeoPixel, self).__init__(
             count,
             pin,
             LED_FREQ_HZ,
