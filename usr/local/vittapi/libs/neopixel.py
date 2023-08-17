@@ -102,6 +102,16 @@ class NeoPixel(PixelStrip):
         color = Color(red, green, blue)
         self.setPixelColor(index, color)
 
+    def set_color(self, red, green, blue):
+        '''
+        Set the color of all pixels.
+
+        Args:
+            color(Color): the color of the pixel
+        '''
+        color = Color(red, green, blue)
+        return color
+
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
