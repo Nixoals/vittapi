@@ -91,7 +91,7 @@ class NeoPixel(PixelStrip):
         # Intialize the library (must be called once before other functions).
         self.begin()
 
-    def set_pixel(index, red, green, blue):
+    def set_pixel(self, index, red, green, blue):
         '''
         Set the color of a pixel.
 
