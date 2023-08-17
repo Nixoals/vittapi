@@ -78,7 +78,7 @@ class NeoPixel(PixelStrip):
             brightness = LED_BRIGHTNESS
 
         # Create PixelStrip object with appropriate configuration.
-        super(Neopixel, self).__init__(
+        super(NeoPixel, self).__init__(
             count,
             pin,
             LED_FREQ_HZ,
