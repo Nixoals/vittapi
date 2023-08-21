@@ -1,7 +1,10 @@
 #!/bin/sh
 
+sudo apt-get update
 
 pip install flask RPi.GPIO flask_cors Flask-SocketIO
+
+sudo apt-get install sense-hat
 
 original_dir=$(pwd) # Save current directory
 
