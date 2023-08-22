@@ -21,6 +21,9 @@ app = Flask(__name__)
 precode = """
 import sys
 import os
+import logging
+
+logging.getLogger("root").setLevel(logging.ERROR)
 
 libs_directory = '/usr/local/vittapi/libs'
 #to remove when building package
