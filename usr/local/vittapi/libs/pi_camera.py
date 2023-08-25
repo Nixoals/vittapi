@@ -1,6 +1,7 @@
 import io
 import base64
 from picamera2 import Picamera2, Preview
+import time
 
 
 class Camera(object):
