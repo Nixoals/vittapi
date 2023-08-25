@@ -47,17 +47,17 @@ class Camera(object):
         return "IMAGE_CAPTURED_SUCCESSFULLY"
 
     def get_record(self, duration=5):
-        self.camera.start_recording(self.encoder, 'temp_video.h264')
+        self.camera.start_recording(self.encoder, 'temp_video.mp4')
         time.sleep(duration)
         self.camera.stop_recording()
 
         time.sleep(2)
 
         # Enregistrez la vidéo dans le répertoire temporaire
-        temp_filename = "temp_video.h264"
+        temp_filename = "temp_video.mp4"
 
         # Définir le chemin du répertoire et du fichier de destination
-        filename = "video.h264"
+        filename = "video.mp4"
         dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/videos/'
 
         # Créer le répertoire s'il n'existe pas
