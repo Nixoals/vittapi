@@ -6,6 +6,7 @@ import subprocess
 import sys
 import logging
 import os
+import io, base64, picamera
 
 libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
 sys.path.append(libs_directory)
