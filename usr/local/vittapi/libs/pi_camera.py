@@ -12,8 +12,8 @@ class Camera(object):
         self.camera = Picamera2()
         self.camera_config = self.camera.create_preview_configuration({"size": (640, 480)}, raw=self.camera.sensor_modes[mode])
         self.camera.configure(self.camera_config)
-        self.video_config = self.camera.create_video_configuration()
-        self.encoder = H264Encoder(bitrate=10000000)
+        #self.video_config = self.camera.create_video_configuration()
+        #self.encoder = H264Encoder(bitrate=10000000)
         # self.camera.start_preview(Preview.DRM)
 
     def get_frame(self):
@@ -47,9 +47,8 @@ class Camera(object):
         return "IMAGE_CAPTURED_SUCCESSFULLY"
 
     def get_record(self, duration=5):
-        self.camera.start_recording(self.encoder, 'temp_video.mp4')
-        time.sleep(duration)
-        self.camera.stop_recording()
+        self.camera.start_and_record_video('temp_video.mp4', duration=duration)
+        
 
         time.sleep(2)
 
