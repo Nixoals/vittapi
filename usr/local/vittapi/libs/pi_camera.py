@@ -15,8 +15,11 @@ class Camera(object):
     def get_frame(self):
         self.camera.start()
         time.sleep(2)
-        data = io.BytesIO()
-        self.camera.capture_file('/image/image.jpg')
+        filename = "image.jpg"
+        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/image'
+        savepath = os.path.join(dirpath, filename)
+        self.camera.capture_file(savepath,  "main", format="jpg", wait=None)
+        # self.camera.capture_file('/image/image.jpg')
         self.camera.stop()
         time.sleep(2)
         return print("IMAGE_CAPTURED_SUCCESSFULLY")
