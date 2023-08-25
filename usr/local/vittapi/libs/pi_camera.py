@@ -7,9 +7,9 @@ import shutil
 
 
 class Camera(object):
-    def __init__(self):
+    def __init__(self, mode=1):
         self.camera = Picamera2()
-        self.camera_config = self.camera.create_preview_configuration()
+        self.camera_config = self.camera.create_preview_configuration({"size": (640, 480)}, raw=self.camera.sensor_modes[2])
         self.camera.configure(self.camera_config)
         # self.camera.start_preview(Preview.DRM)
 
