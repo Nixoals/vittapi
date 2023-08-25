@@ -2,9 +2,10 @@
 
 sudo apt-get update
 
-pip install flask RPi.GPIO flask_cors Flask-SocketIO, picamera
+pip install flask RPi.GPIO flask_cors Flask-SocketIO, picamera2
 
 sudo apt-get install sense-hat
+sudo apt install -y python3-picamera2
 
 original_dir=$(pwd) # Save current directory
 
