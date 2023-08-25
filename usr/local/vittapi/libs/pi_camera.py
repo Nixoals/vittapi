@@ -26,7 +26,7 @@ class Camera(object):
 
         # Définir le chemin du répertoire et du fichier de destination
         filename = "image.jpg"
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/image'
+        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/images/'
         
         # Créer le répertoire s'il n'existe pas
         if not os.path.exists(dirpath):
