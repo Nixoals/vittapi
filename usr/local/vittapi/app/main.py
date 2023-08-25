@@ -6,9 +6,12 @@ import subprocess
 import sys
 import logging
 import os
-import io, base64, picamera
+import io
+import base64
+import picamera
 
-libs_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'libs')
+libs_directory = os.path.join(os.path.dirname(
+    os.path.realpath(__file__)), '..', 'libs')
 sys.path.append(libs_directory)
 
 socketio_logger = logging.getLogger('socketio')
@@ -53,6 +56,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 current_process = None
 
+
 def terminate_current_process():
     global current_process
     if current_process:
@@ -62,9 +66,26 @@ def terminate_current_process():
         except Exception as e:
             print(f"Error while terminating process: {e}")
 
+
 def stream_process_output(process):
     # Capture stdout
+    in_image_block = False
+    image_data = []
     for line in iter(process.stdout.readline, ''):
+        if "###BEGIN_IMAGE###" in line:
+            in_image_block = True
+            continue
+        if "###END_IMAGE###" in line:
+            in_image_block = False
+            # Traitez ou envoyez image_data ici, qui contient votre image en base64
+            image_base64 = ''.join(image_data)
+            # Vous pourriez vouloir envelopper ceci dans un objet JSON ou dans une autre structure pour que le frontend puisse l'identifier
+            yield f"CODE_IMAGE_DATA:{image_base64}\n"
+            image_data = []
+            continue
+        if in_image_block:
+            image_data.append(line.strip())
+            continue
         yield line
 
     # Capture stderr
@@ -74,6 +95,7 @@ def stream_process_output(process):
     process.stdout.close()
     process.stderr.close()
     process.wait()
+
 
 @app.route('/send-command', methods=['POST'])
 def home_command():
@@ -87,9 +109,11 @@ def home_command():
         temp.write(code.encode())
         temp.flush()  # Make sure the data is written to the file
 
-    current_process = subprocess.Popen([sys.executable, temp.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    current_process = subprocess.Popen(
+        [sys.executable, temp.name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
     return Response(stream_process_output(current_process), content_type='text/plain')
+
 
 @app.route('/take-picture', methods=['get'])
 def take_picture():
@@ -99,13 +123,12 @@ def take_picture():
         camera.capture(stream, format='jpeg')
         stream.seek(0)
         image_data = stream.read()
-        
+
         # Encodez la photo en base64
         image_base64 = base64.b64encode(image_data).decode()
-        
+
         # Retournez la photo encodée en base64
         return jsonify({'image': image_base64})
-
 
 
 @app.route('/terminate', methods=['POST'])
@@ -118,6 +141,7 @@ def terminate():
 def handle_connection(data):
     if 'connection request' in data["data"]:
         send('connected')
+
 
 if __name__ == '__main__':
     socketio.run(app, host="0.0.0.0")

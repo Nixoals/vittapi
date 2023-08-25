@@ -17,7 +17,6 @@ class Camera(object):
         time.sleep(2)
         data = io.BytesIO()
         image = self.camera.capture_buffer()
-        print(image)
         self.camera.stop()
         return base64.b64encode(image).decode()
 
