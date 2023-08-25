@@ -51,6 +51,8 @@ class Camera(object):
         time.sleep(duration)
         self.camera.stop_recording()
 
+        time.sleep(2)
+
         # Enregistrez la vidéo dans le répertoire temporaire
         temp_filename = "temp_video.h264"
 
