@@ -4,7 +4,6 @@ from picamera2 import Picamera2, Preview
 import time
 import os
 
-image
 
 
 class Camera(object):
