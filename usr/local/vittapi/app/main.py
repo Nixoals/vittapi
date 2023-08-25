@@ -80,7 +80,7 @@ def stream_process_output(process):
             # Traitez ou envoyez image_data ici, qui contient votre image en base64
             image_base64 = ''.join(image_data)
             # Vous pourriez vouloir envelopper ceci dans un objet JSON ou dans une autre structure pour que le frontend puisse l'identifier
-            yield f"CODE_IMAGE_DATA:{image_base64}\n"
+            yield f"CODE_IMAGE_DATA:{image_base64}\nEND_CODE_IMAGE_DATA\n"
             image_data = []
             continue
         if in_image_block:
