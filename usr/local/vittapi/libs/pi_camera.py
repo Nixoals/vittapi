@@ -18,8 +18,7 @@ class Camera(object):
         time.sleep(2)
         
         # Enregistrez l'image dans le répertoire temporaire
-        temp_filename = "temp_image.jpg"
-        self.camera.capture_image(temp_filename)
+        self.camera.capture_image("temp_image", format='jpeg')
         
         self.camera.stop()
         time.sleep(2)
