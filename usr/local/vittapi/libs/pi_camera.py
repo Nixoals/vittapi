@@ -20,7 +20,7 @@ class Camera(object):
         data = io.BytesIO()
         image = self.camera.capture_buffer()
         self.camera.stop()
-        image_base64 = base64.b64encode(image).decode()
+        image_base64 = base64.b64encode(image)
         print(f"###BEGIN_IMAGE###\n{image_base64}\n###END_IMAGE###")
         return None
 
