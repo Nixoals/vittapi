@@ -3,6 +3,7 @@ import base64
 from picamera2 import Picamera2, Preview
 import time
 import os
+import shutil
 
 
 class Camera(object):
@@ -15,11 +16,29 @@ class Camera(object):
     def get_frame(self):
         self.camera.start()
         time.sleep(2)
-        filename = "image.jpg"
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/images'
-        savepath = os.path.join(dirpath, filename)
-        self.camera.capture_image(savepath)
-        # self.camera.capture_file('/image/image.jpg')
+        
+        # Enregistrez l'image dans le répertoire temporaire
+        temp_filename = "temp_image.jpg"
+        self.camera.capture_image(temp_filename)
+        
         self.camera.stop()
         time.sleep(2)
-        return print("IMAGE_CAPTURED_SUCCESSFULLY")
+
+        # Définir le chemin du répertoire et du fichier de destination
+        filename = "image.jpg"
+        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/image'
+        
+        # Créer le répertoire s'il n'existe pas
+        if not os.path.exists(dirpath):
+            os.makedirs(dirpath)
+
+        destpath = os.path.join(dirpath, filename)
+
+        # Copier l'image dans le répertoire de destination
+        shutil.copy(temp_filename, destpath)
+
+        # Supprimer l'image temporaire si nécessaire
+        os.remove(temp_filename)
+
+        print("IMAGE_CAPTURED_SUCCESSFULLY")
+        return "IMAGE_CAPTURED_SUCCESSFULLY"
