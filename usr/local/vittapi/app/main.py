@@ -107,6 +107,10 @@ def serve_image(filename):
     except FileNotFoundError:
         abort(404)
 
+@app.route('/videos/<filename>')
+def serve_video(filename):
+    return send_from_directory('static', filename)
+
 @app.route('/terminate', methods=['POST'])
 def terminate():
     terminate_current_process()
