@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response, send_file
+from flask import Flask, request, jsonify, Response, send_file, send_from_directory
 from flask_socketio import SocketIO, send
 from flask_cors import CORS
 import tempfile
@@ -69,23 +69,8 @@ def terminate_current_process():
 
 def stream_process_output(process):
     # Capture stdout
-    in_image_block = False
-    image_data = []
+
     for line in iter(process.stdout.readline, ''):
-        if "###BEGIN_IMAGE###" in line:
-            in_image_block = True
-            continue
-        if "###END_IMAGE###" in line:
-            in_image_block = False
-            # Traitez ou envoyez image_data ici, qui contient votre image en base64
-            image_base64 = ''.join(image_data)
-            # Vous pourriez vouloir envelopper ceci dans un objet JSON ou dans une autre structure pour que le frontend puisse l'identifier
-            yield f"CODE_IMAGE_DATA:{image_base64}\nEND_CODE_IMAGE_DATA\n"
-            image_data = []
-            continue
-        if in_image_block:
-            image_data.append(line.strip())
-            continue
         yield line
 
     # Capture stderr
@@ -115,15 +100,9 @@ def home_command():
     return Response(stream_process_output(current_process), content_type='text/plain')
 
 
-@app.route('/get-picam-image', methods=['get'])
-def pi_cam_image():
-    image_data = open("image.jpg", "rb").read()  # Remplacez ceci par la manière dont vous obtenez vos données d'image
-    return send_file(
-        io.BytesIO(image_data),
-        mimetype='image/jpeg',
-        as_attachment=True,
-        attachment_filename='image.jpg'
-    )
+@app.route("/image/<filename>")
+def serve_image(filename):
+    return send_from_directory("static", filename)
 
 @app.route('/terminate', methods=['POST'])
 def terminate():
