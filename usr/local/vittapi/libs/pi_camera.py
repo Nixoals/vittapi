@@ -15,6 +15,7 @@ class Camera(object):
     def get_frame(self):
         self.camera.start()
         time.sleep(2)
-        image = self.camera.capture_file('image.jpg')
+        data = io.BytesIO()
+        image = self.camera.capture_file(data, format='jpeg')
         return base64.b64encode(image).decode()
 
