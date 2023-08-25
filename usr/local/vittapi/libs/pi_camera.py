@@ -16,14 +16,7 @@ class Camera(object):
         self.camera.start()
         time.sleep(2)
         data = io.BytesIO()
-        image = self.camera.capture_buffer()
+        self.camera.capture_file('image.jpg')
         self.camera.stop()
-        # Décode en chaîne de caractères pour l'écriture dans un fichier texte
-        image_base64 = base64.b64encode(image).decode("utf-8")
-
-        # Sauvegarde de l'image base64 dans un fichier
-        with open("image_base64.txt", "w") as f:
-            f.write(image_base64)
-
-        print(f"###BEGIN_IMAGE###\n{image_base64}\n###END_IMAGE###")
-        return None
+        time.sleep(2)
+        return print("imaged_saved")
