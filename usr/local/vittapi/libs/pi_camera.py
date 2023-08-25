@@ -16,7 +16,7 @@ class Camera(object):
         self.camera.start()
         time.sleep(2)
         filename = "image.jpg"
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/image'
+        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/image'
         savepath = os.path.join(dirpath, filename)
         self.camera.capture_image(savepath)
         # self.camera.capture_file('/image/image.jpg')
