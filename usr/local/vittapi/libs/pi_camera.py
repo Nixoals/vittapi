@@ -16,7 +16,7 @@ class Camera(object):
         self.camera.start()
         time.sleep(2)
         data = io.BytesIO()
-        image = self.camera.capture_file(data, format='jpeg')
+        image = self.camera.capture_buffer()
         print(image)
         return base64.b64encode(image).decode()
 
