@@ -2,6 +2,9 @@ import io
 import base64
 from picamera2 import Picamera2, Preview
 import time
+import os
+
+image
 
 
 class Camera(object):
@@ -18,5 +21,7 @@ class Camera(object):
         data = io.BytesIO()
         image = self.camera.capture_buffer()
         self.camera.stop()
-        return base64.b64encode(image).decode()
+        image_base64 = base64.b64encode(image).decode()
+        print(f"###BEGIN_IMAGE###\n{image_base64}\n###END_IMAGE###")
+        return None
 
