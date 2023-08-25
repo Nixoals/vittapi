@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response, send_file, send_from_directory
+from flask import Flask, request, jsonify, Response, send_file, send_from_directory, abort
 from flask_socketio import SocketIO, send
 from flask_cors import CORS
 import tempfile
@@ -102,7 +102,10 @@ def home_command():
 
 @app.route("/images/<filename>")
 def serve_image(filename):
-    return send_from_directory("static", filename)
+    try:
+        return send_from_directory("static", filename)
+    except FileNotFoundError:
+        abort(404)
 
 @app.route('/terminate', methods=['POST'])
 def terminate():
