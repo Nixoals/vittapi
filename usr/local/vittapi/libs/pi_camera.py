@@ -7,7 +7,7 @@ import time
 class Camera(object):
     def __init__(self):
         self.camera = Picamera2()
-        self.camera_config = self.camera.create_preview_configuration()
+        #self.camera_config = self.camera.create_preview_configuration()
         self.camera.configure(self.camera_config)
         #self.camera.start_preview(Preview.DRM)
 
@@ -18,5 +18,6 @@ class Camera(object):
         data = io.BytesIO()
         image = self.camera.capture_buffer()
         print(image)
+        self.camera.stop()
         return base64.b64encode(image).decode()
 
