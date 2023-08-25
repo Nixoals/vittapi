@@ -91,6 +91,23 @@ def home_command():
 
     return Response(stream_process_output(current_process), content_type='text/plain')
 
+@app.route('/take-picture', methods=['get'])
+def take_picture():
+    with picamera.PiCamera() as camera:
+        camera.resolution = (640, 480)
+        stream = io.BytesIO()
+        camera.capture(stream, format='jpeg')
+        stream.seek(0)
+        image_data = stream.read()
+        
+        # Encodez la photo en base64
+        image_base64 = base64.b64encode(image_data).decode()
+        
+        # Retournez la photo encodée en base64
+        return jsonify({'image': image_base64})
+
+
+
 @app.route('/terminate', methods=['POST'])
 def terminate():
     terminate_current_process()
