@@ -100,7 +100,7 @@ def home_command():
     return Response(stream_process_output(current_process), content_type='text/plain')
 
 
-@app.route("/image/<filename>")
+@app.route("/images/<filename>")
 def serve_image(filename):
     return send_from_directory("static", filename)
 
