@@ -2,10 +2,15 @@
 
 interface pour une connexion entre vittascience et un raspberry pi
 
+## OS
+Bullseye 
+
 ## Prérequis
 update des paquets
 
 ``` sudo apt-get update ```
+``` sudo apt-get install sense-hat ```
+``` sudo apt install -y python3-picamera2 ```
 
 activation de l'I2C
 
