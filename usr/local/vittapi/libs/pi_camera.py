@@ -29,11 +29,12 @@ class Camera(object):
 
         # Définir le chemin du répertoire et du fichier de destination
         filename = "image.jpg"
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/images/'
-        
+        #local
+        #dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/images/'
+        #server
+        dirpath = "/usr/local/vittapi/app/static/images/"
         # Créer le répertoire s'il n'existe pas
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
+       
 
         destpath = os.path.join(dirpath, filename)
 
@@ -57,11 +58,12 @@ class Camera(object):
 
         # Définir le chemin du répertoire et du fichier de destination
         filename = "video.mp4"
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/videos/'
+        #local
+        #irpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/videos/'
+        #server
+        dirpath = "/usr/local/vittapi/app/static/videos/"
 
-        # Créer le répertoire s'il n'existe pas
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
+        
 
         destpath = os.path.join(dirpath, filename)
 
