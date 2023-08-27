@@ -1,7 +1,5 @@
 #!/bin/sh
 
-sudo apt-get update
-
 pip install flask RPi.GPIO flask_cors Flask-SocketIO picamera2
 
 sudo apt-get install sense-hat
