@@ -30,16 +30,20 @@ class Camera(object):
         # Définir le chemin du répertoire et du fichier de destination
         filename = "image.jpg"
         #local
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/images/'
+        #dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/images/'
         #server
-        #dirpath = "/usr/local/vittapi/app/static/images/"
+        dirpath = "/usr/local/vittapi/app/static/images/"
         # Créer le répertoire s'il n'existe pas
        
 
         destpath = os.path.join(dirpath, filename)
 
         # Copier l'image dans le répertoire de destination
-        shutil.copy(temp_filename, destpath)
+        try:
+            shutil.copy(temp_filename, destpath)
+            print(f"Copié avec succès de {temp_filename} à {destpath}")
+        except Exception as e:
+            print(f"Impossible de copier le fichier. Erreur: {e}")
 
         # Supprimer l'image temporaire si nécessaire
         os.remove(temp_filename)
@@ -59,16 +63,20 @@ class Camera(object):
         # Définir le chemin du répertoire et du fichier de destination
         filename = "video.mp4"
         #local
-        dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/videos/'
+        #dirpath = '/home/pi/Desktop/vittapi/usr/local/vittapi/app/static/videos/'
         #server
-        #dirpath = "/usr/local/vittapi/app/static/videos/"
+        dirpath = "/usr/local/vittapi/app/static/videos/"
 
         
 
         destpath = os.path.join(dirpath, filename)
 
         # Copier la vidéo dans le répertoire de destination
-        shutil.copy(temp_filename, destpath)
+        try:
+            shutil.copy(temp_filename, destpath)
+            print(f"Copié avec succès de {temp_filename} à {destpath}")
+        except Exception as e:
+            print(f"Impossible de copier le fichier. Erreur: {e}")
 
         # Supprimer la vidéo temporaire si nécessaire
         os.remove(temp_filename)
