@@ -34,7 +34,7 @@ def run_tkinter():
     root.title("Vittapi GUI")
 
     text = Text(root, wrap='word')
-    scrollbar = Scrollbar(root, orient='y', command=text.yview)
+    scrollbar = Scrollbar(root, orient='vertical', command=text.yview)
 
     # Mise en place de la coloration syntaxique
     text.tag_configure("python_comment", foreground="green")
