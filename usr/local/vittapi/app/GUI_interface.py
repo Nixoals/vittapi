@@ -2,7 +2,7 @@ from tkinter import Tk, Label
 
 code_to_send = 'Envoyer du code depuyis la plateforme vittascience'  # Variable globale pour compter les appels
 
-def update_code(code):
+def update_code(code='Envoyer du code depuyis la plateforme vittascience'):
     global code_to_send
     code_to_send = code
 
