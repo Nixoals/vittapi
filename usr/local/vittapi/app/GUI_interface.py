@@ -45,17 +45,21 @@ def run_tkinter():
     global code_to_send
     root = Tk()
     root.geometry("600x400")
-    root.title("Vittapi GUI")
+    root.title("Vittapi")
 
     connection_status = StringVar()
-    connection_status.set("Déconnecté")
-    connection_state = Label(root, textvariable=connection_status)
+    connection_status.set("Etat: Déconnecté")
+    connection_state = Label(root, textvariable=connection_status, anchor="NW")
     connection_state.pack()
-    
+
+    codeLabel = Label(root, text="Code à envoyer:")
+    codeLabel.pack()
+
     def update_label_connection():
         global connection
-        connection_status.set("Connecté" if connection else "Déconnecté")
+        connection_status.set("Etat: Connecté" if connection else "Etat: Déconnecté")
         root.after(1000, update_label_connection)
+
 
     text = Text(root, wrap='word')
     scrollbar = Scrollbar(root, orient='vertical', command=text.yview)
