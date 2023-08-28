@@ -123,6 +123,7 @@ def terminate():
 @socketio.on('message')
 def handle_connection(data):
     if 'connection request' in data["data"]:
+        print("client connected")
         send('connected')
 
 @socketio.on('disconnect')
