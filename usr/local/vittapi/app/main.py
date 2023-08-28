@@ -1,3 +1,4 @@
+import GUI_interface
 from flask import Flask, request, jsonify, Response, send_file, send_from_directory, abort
 from flask_socketio import SocketIO, send
 from flask_cors import CORS
@@ -10,7 +11,6 @@ import io
 import base64
 import picamera
 import threading
-import GUI_interface
 
 libs_directory = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '..', 'libs')
