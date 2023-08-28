@@ -39,10 +39,14 @@ class Camera(object):
         destpath = os.path.join(dirpath, filename)
 
         # Copier l'image dans le répertoire de destination
-        shutil.copy(temp_filename, destpath)
+        try:
+            shutil.copy(temp_filename, destpath)
+            print(f"Copié avec succès de {temp_filename} à {destpath}")
+        except Exception as e:
+            print(f"Impossible de copier le fichier. Erreur: {e}")
 
         # Supprimer l'image temporaire si nécessaire
-        os.remove(temp_filename)
+        #os.remove(temp_filename)
 
         print("IMAGE_CAPTURED_SUCCESSFULLY")
         return "IMAGE_CAPTURED_SUCCESSFULLY"
@@ -71,7 +75,7 @@ class Camera(object):
         shutil.copy(temp_filename, destpath)
 
         # Supprimer la vidéo temporaire si nécessaire
-        os.remove(temp_filename)
+        #os.remove(temp_filename)
 
 
         print("VIDEO_CAPTURED_SUCCESSFULLY")
