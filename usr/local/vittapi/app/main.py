@@ -10,12 +10,7 @@ import io
 import base64
 import picamera
 import threading
-from GUI_interface import run_tkinter
-
-
-counter = 0
-
-
+import GUI_interface
 
 libs_directory = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '..', 'libs')
@@ -93,8 +88,7 @@ def stream_process_output(process):
 def home_command():
     global current_process, counter
 
-    counter += 1
-    run_tkinter(counter)
+    GUI_interface.update_counter()
     # Terminate any previous processes
     terminate_current_process()
 
@@ -132,7 +126,7 @@ def handle_connection(data):
         send('connected')
 
 
-t = threading.Thread(target=run_tkinter)
+t = threading.Thread(target=GUI_interface.run_tkinter)
 t.start()
 
 if __name__ == '__main__':

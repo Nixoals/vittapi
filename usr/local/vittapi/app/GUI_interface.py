@@ -1,7 +1,13 @@
 from tkinter import Tk, Label
 
+counter = 0  # Variable globale pour compter les appels
 
-def run_tkinter(counter):
+def update_counter():
+    global counter
+    counter += 1
+
+def run_tkinter():
+    global counter
     root = Tk()
     root.title("Flask Server Monitor")
 
@@ -9,9 +15,9 @@ def run_tkinter(counter):
     label.pack()
 
     def update_label():
-        
+        global counter
         label.config(text=f"/send-command called {counter} times")
         label.after(1000, update_label)  # Mise à jour chaque seconde
 
     update_label()
-    # root.mainloop()
+    root.mainloop()
