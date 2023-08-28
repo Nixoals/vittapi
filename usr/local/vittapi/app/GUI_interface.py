@@ -25,7 +25,15 @@ def syntax_highlight(text_widget):
         for match in re.finditer(f"\\b{keyword}\\b", content):
             text_widget.tag_add(
                 "python_keyword", f"1.0 + {match.start()} chars", f"1.0 + {match.end()} chars")
-
+    for keyword in ["print"]:
+        for match in re.finditer(f"\\b{keyword}\\b", content):
+            text_widget.tag_add(
+                "python_print", f"1.0 + {match.start()} chars", f"1.0 + {match.end()} chars")
+    for keyword in ["True", "False", "None"]:
+        for match in re.finditer(f"\\b{keyword}\\b", content):
+            text_widget.tag_add(
+                "python_boolean", f"1.0 + {match.start()} chars", f"1.0 + {match.end()} chars")
+    
 
 def run_tkinter():
     global code_to_send
@@ -39,6 +47,8 @@ def run_tkinter():
     # Mise en place de la coloration syntaxique
     text.tag_configure("python_comment", foreground="green")
     text.tag_configure("python_keyword", foreground="blue")
+    text.tag_configure("python_print", foreground="orange")
+    text.tag_configure("python_boolean", foreground="red")
 
     text.config(yscrollcommand=scrollbar.set)
 
