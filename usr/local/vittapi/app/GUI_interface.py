@@ -76,7 +76,7 @@ def run_tkinter():
     text.tag_configure("python_comment", foreground="gray")
     text.tag_configure("python_keyword", foreground="orange")
     text.tag_configure("python_print", foreground="orange")
-    text.tag_configure("python_boolean", foreground="pink")
+    text.tag_configure("python_boolean", foreground="blue")
     text.tag_configure("python_string", foreground="green")
 
 
