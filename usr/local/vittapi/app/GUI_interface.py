@@ -1,4 +1,4 @@
-from tkinter import Tk, Text, Scrollbar, Y, END, Label, StringVar
+from tkinter import Tk, Text, Scrollbar, Y, END, Label, StringVar, Frame
 import re
 
 code_to_send = 'Envoyer du code depuis la plateforme vittascience'  # Variable globale
@@ -47,13 +47,17 @@ def run_tkinter():
     root.geometry("600x400")
     root.title("Vittapi")
 
+
+    top_frame = Frame(root)
+    top_frame.pack(side='top', anchor='nw')
+
     connection_status = StringVar()
     connection_status.set("Etat: Déconnecté")
-    connection_state = Label(root, textvariable=connection_status, anchor="nw")
-    connection_state.pack()
+    connection_state = Label(top_frame, textvariable=connection_status, anchor="w")
+    connection_state.pack(side='left')
 
-    codeLabel = Label(root, text="Code à envoyer:")
-    codeLabel.pack()
+    codeLabel = Label(top_frame, text="Code reçu:", anchor="w")
+    codeLabel.pack(side='left')
 
     def update_label_connection():
         global connection
