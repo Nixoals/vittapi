@@ -10,6 +10,7 @@ import shutil
 class Camera(object):
     def __init__(self, mode=1):
         self.camera = Picamera2()
+        self.camera.set_logging(Picamera2.ERROR)
         self.camera_config = self.camera.create_preview_configuration({"size": (640, 480)}, raw=self.camera.sensor_modes[mode])
         self.camera.configure(self.camera_config)
         #self.video_config = self.camera.create_video_configuration()
