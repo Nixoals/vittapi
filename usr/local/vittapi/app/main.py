@@ -10,26 +10,11 @@ import io
 import base64
 import picamera
 import threading
-from tkinter import Tk, Label
+from GUI_interface import run_tkinter
+
 
 counter = 0
 
-
-def run_tkinter():
-    global counter
-    root = Tk()
-    root.title("Flask Server Monitor")
-
-    label = Label(root, text="Initial state")
-    label.pack()
-
-    def update_label():
-        global counter
-        label.config(text=f"/send-command called {counter} times")
-        label.after(1000, update_label)  # Mise à jour chaque seconde
-
-    update_label()
-    root.mainloop()
 
 
 libs_directory = os.path.join(os.path.dirname(
@@ -109,6 +94,7 @@ def home_command():
     global current_process, counter
 
     counter += 1
+    run_tkinter(counter)
     # Terminate any previous processes
     terminate_current_process()
 
