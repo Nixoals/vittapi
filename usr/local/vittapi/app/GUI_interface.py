@@ -1,4 +1,4 @@
-from tkinter import Tk, Text, Scrollbar, Y, END, Label
+from tkinter import Tk, Text, Scrollbar, Y, END, Label, StringVar
 import re
 
 code_to_send = 'Envoyer du code depuis la plateforme vittascience'  # Variable globale
@@ -47,15 +47,15 @@ def run_tkinter():
     root.geometry("600x400")
     root.title("Vittapi GUI")
 
+    connection_status = StringVar()
+    connection_status.set("Déconnecté")
+    connection_state = Label(root, textvariable=connection_status)
+    connection_state.pack()
+    
     def update_label_connection():
         global connection
-        if (connection):
-            connection_state = Label( root, text ="Connecté")
-        else:
-            connection_state = Label( root, text ="Deconnecté")
-
-        connection_state.pack()
-        connection_state.after(1000, update_label_connection)
+        connection_status.set("Connecté" if connection else "Déconnecté")
+        root.after(1000, update_label_connection)
 
     text = Text(root, wrap='word')
     scrollbar = Scrollbar(root, orient='vertical', command=text.yview)
@@ -78,6 +78,7 @@ def run_tkinter():
         syntax_highlight(text)  # Appliquer la coloration syntaxique
         text.after(1000, update_text)  # Mise à jour chaque seconde
 
+    update_label_connection() 
     update_text()
     root.mainloop()
 
