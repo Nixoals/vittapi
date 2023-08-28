@@ -5,6 +5,7 @@ from picamera2.encoders import H264Encoder
 import time
 import os
 import shutil
+os.environ["LIBCAMERA_LOG_LEVELS"] = "3"
 
 
 class Camera(object):
