@@ -9,6 +9,28 @@ import os
 import io
 import base64
 import picamera
+import threading
+from tkinter import Tk, Label
+
+counter = 0
+
+
+def run_tkinter():
+    global counter
+    root = Tk()
+    root.title("Flask Server Monitor")
+
+    label = Label(root, text="Initial state")
+    label.pack()
+
+    def update_label():
+        global counter
+        label.config(text=f"/send-command called {counter} times")
+        label.after(1000, update_label)  # Mise à jour chaque seconde
+
+    update_label()
+    root.mainloop()
+
 
 libs_directory = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '..', 'libs')
@@ -84,8 +106,9 @@ def stream_process_output(process):
 
 @app.route('/send-command', methods=['POST'])
 def home_command():
-    global current_process
+    global current_process, counter
 
+    counter += 1
     # Terminate any previous processes
     terminate_current_process()
 
@@ -122,6 +145,9 @@ def handle_connection(data):
     if 'connection request' in data["data"]:
         send('connected')
 
+
+t = threading.Thread(target=run_tkinter)
+t.start()
 
 if __name__ == '__main__':
     socketio.run(app, host="0.0.0.0")
