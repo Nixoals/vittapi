@@ -88,7 +88,7 @@ def stream_process_output(process):
 def home_command():
     global current_process, counter
 
-    GUI_interface.update_counter()
+    GUI_interface.update_code()
     # Terminate any previous processes
     terminate_current_process()
 
