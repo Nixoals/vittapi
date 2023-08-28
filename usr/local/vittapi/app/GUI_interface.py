@@ -1,7 +1,13 @@
-from tkinter import Tk, Text, Scrollbar, Y, END
+from tkinter import Tk, Text, Scrollbar, Y, END, Label
 import re
 
 code_to_send = 'Envoyer du code depuis la plateforme vittascience'  # Variable globale
+
+connection = False
+
+def update_connection(value):
+    global connection
+    connection = value
 
 
 def update_code(code='Envoyer du code depuis la plateforme vittascience'):
@@ -40,6 +46,16 @@ def run_tkinter():
     root = Tk()
     root.geometry("600x400")
     root.title("Vittapi GUI")
+
+    def update_label_connection():
+        global connection
+        if (connection):
+            connection_state = Label( root, text ="Connecté")
+        else:
+            connection_state = Label( root, text ="Deconnecté")
+
+        connection_state.pack()
+        connection_state.after(1000, update_label_connection)
 
     text = Text(root, wrap='word')
     scrollbar = Scrollbar(root, orient='vertical', command=text.yview)

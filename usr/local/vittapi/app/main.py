@@ -124,10 +124,12 @@ def terminate():
 def handle_connection(data):
     if 'connection request' in data["data"]:
         print("client connected")
+        GUI_interface.update_connection(True)
         send('connected')
 
 @socketio.on('disconnect')
 def handle_disconnect():
+    GUI_interface.update_connection(False)
     print('Client disconnected')
 
 
