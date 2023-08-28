@@ -125,6 +125,10 @@ def handle_connection(data):
     if 'connection request' in data["data"]:
         send('connected')
 
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('Client disconnected')
+
 
 t = threading.Thread(target=GUI_interface.run_tkinter)
 t.start()
