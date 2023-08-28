@@ -49,7 +49,7 @@ def run_tkinter():
 
     connection_status = StringVar()
     connection_status.set("Etat: Déconnecté")
-    connection_state = Label(root, textvariable=connection_status, anchor="NW")
+    connection_state = Label(root, textvariable=connection_status, anchor="nw")
     connection_state.pack()
 
     codeLabel = Label(root, text="Code à envoyer:")
