@@ -46,7 +46,7 @@ class Camera(object):
             print(f"Impossible de copier le fichier. Erreur: {e}")
 
         # Supprimer l'image temporaire si nécessaire
-        #os.remove(temp_filename)
+        os.remove(temp_filename)
 
         print("IMAGE_CAPTURED_SUCCESSFULLY")
         return "IMAGE_CAPTURED_SUCCESSFULLY"
@@ -75,7 +75,7 @@ class Camera(object):
         shutil.copy(temp_filename, destpath)
 
         # Supprimer la vidéo temporaire si nécessaire
-        #os.remove(temp_filename)
+        os.remove(temp_filename)
 
 
         print("VIDEO_CAPTURED_SUCCESSFULLY")
