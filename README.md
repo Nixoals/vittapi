@@ -60,9 +60,9 @@ Si vous utilisez des modules Grove nécessitant une communication I2C (par exemp
 
 Ce package dépend de plusieurs bibliothèques et modules :
 
-- SenseHat de la Fondation Raspberry Pi - [astro-pi]("https://astro-pi.org/").
-- GrovePi de Seeed Studio - [GrovePi]("https://github.com/Seeed-Studio/grove.py").
-- Module dht de Seeed Studio [dht]("https://github.com/Seeed-Studio/Seeed_Python_DHT")
+- SenseHat de la Fondation Raspberry Pi - [astro-pi](https://astro-pi.org/).
+- GrovePi de Seeed Studio - [github - GrovePi](https://github.com/Seeed-Studio/grove.py).
+- Module dht de Seeed Studio [github - dht](https://github.com/Seeed-Studio/Seeed_Python_DHT)
 
 Toutes ces dépendances sont sous licence MIT.
 
