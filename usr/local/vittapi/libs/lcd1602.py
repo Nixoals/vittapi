@@ -1,4 +1,4 @@
-import smbus
+import smbus2 as smbus
 import time
 
 bus = smbus.SMBus(1)  # Utilisez le bus I2C 1
