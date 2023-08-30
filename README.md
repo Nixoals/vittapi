@@ -1,6 +1,6 @@
 # VittaPi: Interface Raspberry Pi pour VittaScience
 
-VittaPi est une interface conçue pour faciliter la communication entre VittaScience et un Raspberry Pi. Ce package est conçu pour le système d'exploitation Raspberry Pi OS Bullseye.
+VittaPi est une interface conçue pour faciliter la communication entre [VittaScience](https://fr.vittascience.com/code) et un Raspberry Pi. Ce package est conçu pour le système d'exploitation Raspberry Pi OS Bullseye.
 
 ---
 
