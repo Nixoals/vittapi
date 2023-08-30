@@ -1,4 +1,4 @@
-import smbus2 as smbus
+import smbus
 import time
 
 bus = smbus.SMBus(1)  # Utilisez le bus I2C 1
@@ -14,8 +14,7 @@ class LCD1602():
         self.write_command(0x01)  # Efface l'écran
 
     def write_command(self, cmd):
-        bus.write_quick(LCD_ADDRESS)
-        bus.write_byte(LCD_ADDRESS, 0x80 | cmd)
+        bus.write_byte_data(LCD_ADDRESS, 0x80, cmd)
         time.sleep(0.05)
 
     def write_data(self, data):
