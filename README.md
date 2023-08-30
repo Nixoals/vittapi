@@ -1,21 +1,22 @@
-# VittaPi: Raspberry Pi Interface for VittaScience
+# VittaPi: Interface Raspberry Pi pour VittaScience
 
-VittaPi est une interface qui facilite la communication entre VittaScience et un Raspberry Pi. Ce package est spécialement conçu pour être utilisé sur le système d'exploitation Raspberry Pi OS Bullseye.
+VittaPi est une interface conçue pour faciliter la communication entre VittaScience et un Raspberry Pi. Ce package est conçu pour le système d'exploitation Raspberry Pi OS Bullseye.
 
 ---
 
 ## Table des matières
 
-- [VittaPi: Raspberry Pi Interface for VittaScience](#vittapi-raspberry-pi-interface-for-vittascience)
+- [VittaPi: Interface Raspberry Pi pour VittaScience](#vittapi-interface-raspberry-pi-pour-vittascience)
   - [Table des matières](#table-des-matières)
   - [Configuration du système](#configuration-du-système)
-  - [Prérequis](#prérequis)
-    - [Mettre à jour les paquets système](#mettre-à-jour-les-paquets-système)
+  - [Prérequis et Dépendances](#prérequis-et-dépendances)
+    - [Mise à jour des paquets système](#mise-à-jour-des-paquets-système)
     - [Activer la communication I2C pour les modules Grove](#activer-la-communication-i2c-pour-les-modules-grove)
+    - [Dépendances](#dépendances)
   - [Installation](#installation)
   - [Utilisation](#utilisation)
   - [Fonctionnement](#fonctionnement)
-  - [Disclaimer](#disclaimer)
+  - [Avertissement](#avertissement)
 
 ---
 
@@ -25,11 +26,11 @@ VittaPi est une interface qui facilite la communication entre VittaScience et un
 
 ---
 
-## Prérequis
+## Prérequis et Dépendances
 
-### Mettre à jour les paquets système
+### Mise à jour des paquets système
 
-Exécutez la commande suivante pour mettre à jour vos paquets :
+Exécutez la commande suivante pour mettre à jour les paquets du système :
 
 ```bash
 sudo apt-get update
@@ -37,7 +38,7 @@ sudo apt-get update
 
 ### Activer la communication I2C pour les modules Grove
 
-Si vous utilisez des modules Grove qui nécessitent une communication I2C (par exemple, LCD16x2), suivez ces étapes :
+Si vous utilisez des modules Grove nécessitant une communication I2C (par exemple, LCD16x2), suivez ces étapes :
 
 1. Accédez à la configuration du Raspberry Pi :
 
@@ -49,11 +50,21 @@ Si vous utilisez des modules Grove qui nécessitent une communication I2C (par e
 
 3. Sélectionnez "I5 I2C".
 
-4. Redémarrez le système pour que les modifications prennent effet :
+4. Redémarrez le système pour appliquer les modifications :
 
     ```bash
     sudo reboot
     ```
+
+### Dépendances
+
+Ce package dépend de plusieurs bibliothèques et modules :
+
+- SenseHat de la Fondation Raspberry Pi - [astro-pi]("https://astro-pi.org/").
+- GrovePi de Seeed Studio - [GrovePi]("https://github.com/Seeed-Studio/grove.py").
+- Module dht de Seeed Studio [dht]("https://github.com/Seeed-Studio/Seeed_Python_DHT")
+
+Toutes ces dépendances sont sous licence MIT.
 
 ---
 
@@ -61,18 +72,19 @@ Si vous utilisez des modules Grove qui nécessitent une communication I2C (par e
 
 Pour installer VittaPi, suivez les étapes ci-dessous :
 
-1. Téléchargez le package :
+1. Téléchargez le package depuis le dépôt :
 
     ```bash
-    git clone 
+    git clone [URL_du_dépôt]
+    ```
 
-2. Créer le package :
+2. Construisez le package :
 
     ```bash
     sudo dpkg --build vittapi
     ```
 
-3. Installer le package :
+3. Installez le package :
 
     ```bash
     sudo dpkg -i vittapi.deb
@@ -82,13 +94,13 @@ Pour installer VittaPi, suivez les étapes ci-dessous :
 
 ## Utilisation
 
-Après l'installation, un raccourci sera créé sur le bureau de votre Raspberry Pi. Vous pouvez soit :
+Après l'installation, un raccourci sera créé sur le bureau de votre Raspberry Pi. Vous avez deux options :
 
-- Cliquer sur ce raccourci, ce qui ouvrira une fenêtre de terminal et lancera l'interface graphique ainsi que le programme.
+- Cliquez sur le raccourci, ce qui lancera le programme et son interface graphique dans une nouvelle fenêtre de terminal.
   
   **OU**
   
-- Lancer le programme directement depuis un terminal en utilisant la commande :
+- Lancez le programme directement depuis un terminal avec la commande suivante :
 
     ```bash
     vittapi.sh
@@ -98,16 +110,16 @@ Après l'installation, un raccourci sera créé sur le bureau de votre Raspberry
 
 ## Fonctionnement
 
-Pour téléverser du code, il est nécessaire de spécifier le nom d'hôte de votre Raspberry Pi en utilisant un bloc `[raspberry]`. Vous pouvez également utiliser l'adresse IP de votre Raspberry Pi.
+Pour téléverser du code, vous devrez spécifier le nom d'hôte de votre Raspberry Pi à l'aide d'un bloc `[raspberry]`. Vous pouvez également utiliser l'adresse IP de votre Raspberry Pi.
 
 ---
 
-## Disclaimer
+## Avertissement
 
-Ce package est en cours de développement. Des bugs peuvent être présents. Si vous en trouvez, veuillez créer une issue sur notre dépôt GitHub.
+Ce package est encore en développement. Des bugs peuvent être présents. Si vous en découvrez, merci de créer une issue sur notre dépôt GitHub.
 
-**Note de sécurité :** La communication entre vittascience.com et le Raspberry Pi est gérée via un serveur web Flask. Une connexion Internet est donc nécessaire. Veuillez noter que le protocole de communication utilise HTTP et non HTTPS. Il est recommandé de n'utiliser ce package que sur un réseau privé et sécurisé.
+**Note de sécurité :** La communication entre vittascience.com et le Raspberry Pi se fait via un serveur web Flask. Une connexion Internet est nécessaire. La communication utilise le protocole HTTP et non HTTPS. Il est donc recommandé de n'utiliser ce package que sur un réseau privé et sécurisé.
 
 ---
 
-Pour toute autre question ou retour d'expérience, n'hésitez pas à nous contacter.
+Pour toute autre question ou feedback, n'hésitez pas à nous contacter.
