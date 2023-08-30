@@ -39,3 +39,7 @@ class LCD1602():
         
         byte_list = [ord(char) for char in truncated_text]
         bus.write_i2c_block_data(LCD_ADDRESS, 0x40, byte_list)
+
+    def clear(self):
+        self.write_command(0x01)
+        
