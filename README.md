@@ -61,13 +61,18 @@ Si vous utilisez des modules Grove qui nécessitent une communication I2C (par e
 
 Pour installer VittaPi, suivez les étapes ci-dessous :
 
-1. Créer le package :
+1. Téléchargez le package :
+
+    ```bash
+    git clone 
+
+2. Créer le package :
 
     ```bash
     sudo dpkg --build vittapi
     ```
 
-2. Installer le package :
+3. Installer le package :
 
     ```bash
     sudo dpkg -i vittapi.deb
